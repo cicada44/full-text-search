@@ -1,10 +1,12 @@
-set(target_name fts)
+set(target_name NgramParser)
+
+set(path_header_deps ${PROJECT_SOURCE_DIR}/include)
 
 add_library(
     ${target_name}
     STATIC
-        sum.cpp
-        ../../include/libmath/sum.h
+        NgramParser.cpp
+        ${path_header_deps}/NgramParser/NgramParser.hpp
 )
 
 include(CompileOptions)
@@ -16,33 +18,32 @@ target_include_directories(
         ${PROJECT_SOURCE_DIR}/include
 )
 
-# Add testing
+# Testing part
 
-set(target_name_tests fts_tests)
+set(target_name_tests NgramParser.test)
 
 add_executable(${target_name_tests})
 
 target_sources(
     ${target_name_tests}
     PRIVATE
-        sum.test.cpp
+        NgramParser.test.cpp
 )
 
 set_compile_options(${target_name_tests})
 
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-
 target_link_libraries(
     ${target_name_tests}
     PUBLIC
-        ${GTEST_LIBRARIES}
-        pthread
-        fts
+        gtest_main
+        NgramParser
 )
 
 target_include_directories(
     ${target_name_tests}
     PUBLIC
-        ${PROJECT_SOURCE_DIR}/include
+        ${path_header_deps}
 )
+
+include(GoogleTest)
+gtest_discover_tests(${target_name_tests})

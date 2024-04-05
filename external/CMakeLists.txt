@@ -1,3 +1,7 @@
 add_subdirectory(cli11)
-add_subdirectory(fmtlib)
+add_subdirectory(csv)
+# add_subdirectory(fmtlib)
 add_subdirectory(googletest)
+add_subdirectory(picosha)
+add_subdirectory(pugixml)
+add_subdirectory(replxx)
